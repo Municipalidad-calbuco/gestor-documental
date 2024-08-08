@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Oficina;
+use App\Models\User;
 use Illuminate\Http\Request;
+
+use function Livewire\of;
 
 class OficinaController extends Controller
 {
@@ -12,7 +15,7 @@ class OficinaController extends Controller
      */
     public function index()
     {
-        //
+    
     }
 
     /**

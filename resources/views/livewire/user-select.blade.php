@@ -130,24 +130,20 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <div>
-        <div wire:ignore>
-            <select class="js-example-basic-multiple w-full p-4" name="states[]" multiple="multiple">
-                <option value="">Seleccione una opción</option>
-                @foreach($users as $user)
-                <option class="flex flex-col" value="{{ $user->id }}" data-name="{{ $user->name }}" data-rut="{{ $user->rut }}">
 
-                    {{ $user->name }} - {{ $user->rut }}
-
-
-                </option>
-                @endforeach
-            </select>
-        </div>
+    <div wire:ignore>
+        <select wire:model="selectedUserIds" class="js-example-basic-multiple w-full p-4" name="users[]" multiple="multiple">
+            @foreach($users as $user)
+            <option value="{{ $user->id }}">
+                {{ $user->name }} - {{ $user->rut }}
+            </option>
+            @endforeach
+        </select>
     </div>
 
+    <input type="text" value="">
 
-    <button type="button" wire:click="addOption">Agregar</button>
+    <button type="button" wire:click="save">Agregar</button>
 
 
 </div>
@@ -158,6 +154,7 @@
         $('.js-example-basic-multiple').on('change', function() {
             let data = $(this).val();
             console.log(data);
+            $wire.set('selectedUserIds', data);
         })
     });
 </script>

@@ -110,13 +110,7 @@
             <div class="flex flex-col gap-2 w-full">
                 <div class="p-3 shadow-lg  border  bg-white border-gray-200 rounded-lg">
                     <h1> Configuración del documento</h1>
-                    <div class="mt-10">
 
-                        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Seleccione Documento:</label>
-                        <input class="block  text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none  " type="file" id="pdf-upload" name="documento" accept="application/pdf">
-
-
-                    </div>
                     <div class="controls flex items-center gap-4  mt-10">
 
                         <button id="prev-page" class="flex items-center gap-2 border bg-gray-800 text-white text-center border-gray-300 p-2 rounded-md">
@@ -175,25 +169,22 @@
         canvas = document.getElementById('pdf-canvas'),
         ctx = canvas.getContext('2d');
 
-    document.getElementById('pdf-upload').addEventListener('change', function(event) {
-        let file = event.target.files[0];
-        if (file.type !== 'application/pdf') {
-            console.error(file.name, "no es un archivo PDF.");
-            return;
-        }
+    // Función para cargar el PDF desde la URL
+    function loadPdfFromUrl(url, mimeType) {
+        pdfjsLib.getDocument({
+            url: url,
+            mimeType: mimeType
+        }).promise.then(function(pdf) {
+            pdfDoc = pdf;
+            document.getElementById('page-count').textContent = pdf.numPages;
+            renderPage(pageNum);
+        }).catch(function(error) {
+            console.error('Error al cargar el PDF:', error);
+        });
+    }
 
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            let typedarray = new Uint8Array(e.target.result);
-
-            pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
-                pdfDoc = pdf;
-                document.getElementById('page-count').textContent = pdf.numPages;
-                renderPage(pageNum);
-            });
-        };
-        reader.readAsArrayBuffer(file);
-    });
+    // Llamar a esta función al cargar la página
+    loadPdfFromUrl("{{ url('/view-file/' . $fileId) }}", "{{ $mimeType }}");
 
     function renderPage(num) {
         pageRendering = true;

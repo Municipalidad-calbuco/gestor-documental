@@ -2,27 +2,38 @@
 
 namespace App\Livewire;
 
+use App\Models\Proceso;
 use App\Models\User;
+use App\Models\Visador;
 use Livewire\Component;
 
 class UserSelect extends Component
 {
 
-    public $selectedUserId;
     public $users;
+
     public $usuarios = [];
-
-
-    public function mount()
+    public $archivoId;
+    public function mount($archivoId)
     {
         $this->users = User::all();
+        $this->archivoId = $archivoId;
     }
 
-    public function updatedSelectedUserId()
+    public function save()
     {
-        $this->emit('userSelected', $this->selectedUserId);
-    }
+        foreach ($this->selectedUserIds as $userId) {
+            Visador::create([
+                'id_usuario' => $userId,
+                'id_archivo' => $this->archivoId,
 
+            ]);
+        }
+
+        session()->flash('message', 'Usuarios agregados exitosamente.');
+
+        // Puedes realizar cualquier acción de guardado aquí.
+    }
 
 
     public function render()

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('estado')->default('En espera');
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users');
-            $table->unsignedBigInteger('id_cargo');
+            $table->unsignedBigInteger('id_cargo')->nullable();
             $table->foreign('id_cargo')->references('id')->on('cargos');
             $table->unsignedBigInteger('id_archivo');
             $table->foreign('id_archivo')->references('id')->on('archivos');

@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nombre_archivo');
             $table->string('id_google_drive');
-            $table->string('tipo_archivo');
-            $table->unsignedBigInteger('id_oficina');
+            $table->string('tipo_archivo')->nullable();
+            $table->unsignedBigInteger('id_oficina')->nullable();
             $table->foreign('id_oficina')->references('id')->on('oficinas');
             $table->unsignedBigInteger('id_info');
             $table->foreign('id_info')->references('id')->on('info_documentos');
+            $table->unsignedBigInteger('id_proceso')->nullable();
+            $table->foreign('id_proceso')->references('id')->on('procesos');
             $table->timestamps();
         });
     }

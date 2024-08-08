@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\ArchivoController;
+use App\Http\Controllers\ProcesoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VisadorController;
+use App\Models\Proceso;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\VerArchivo;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +23,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/create/proceso', [ProcesoController::class, 'index'])->name('partes.proceso');
+    Route::post('/create/-nuevo', [ProcesoController::class, 'create'])->name('partes.proceso');
+    Route::get('/create/{id}', [ProcesoController::class, 'detalle'])->name('partes.create');
+    Route::post('/upload', [ArchivoController::class, 'uploadFile'])->name('upload.file');
+    Route::get('/download-file/{fileId}', [ArchivoController::class, 'getFile'])->name('download-file');
+    Route::get('/view-file/{fileId}', [ArchivoController::class, 'viewFile'])->name('archivo.viewFile');
+    Route::get('/show-file/{fileId}', [ArchivoController::class, 'showFile'])->name('show-file');
+    Route::post('/crear-visador', [VisadorController::class, 'store'])->name('visador.create');
+    Route::get('/proceso/archivo/{id}', [ArchivoController::class, 'detalle'])->name('proceso.archivo');
+
 
     Route::get('/listado/firmas', function () {
         return view('firmas.entrada');
@@ -26,9 +41,7 @@ Route::middleware('auth')->group(function () {
         return view('partes.archivo');
     })->name('partes.archivo');
 
-    Route::get('/proceso/visador', function () {
-        return view('partes.create');
-    })->name('partes.create');
+
 
 
     Route::get('/create/firmar', function () {

@@ -12,7 +12,6 @@ class VisadorController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -28,7 +27,18 @@ class VisadorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $visador = $request->input('visador');
+
+        if (!empty($visador)) {
+            foreach ($visador as $visadores) {
+                Visador::create([
+                    'id_usuario' => $visadores,
+                    'id_archivo' => $request->input('id_archivo')
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Items inserted successfully!');
     }
 
     /**

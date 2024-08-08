@@ -20,6 +20,16 @@
             <x-text-input id="rut" class="block mt-1 w-full" type="text" name="rut" :value="old('rut')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('rut')" class="mt-2" />
         </div>
+        <div class="mt-4">
+            <x-input-label for="rut" :value="__('Oficina')" />
+          <select id="countries" name="id_oficina" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
+          <option selected>Seleccionar Oficina</option>
+            @foreach ($oficina as $id => $nombre_oficina)
+                        <option name="id_oficina" value="{{ $id }}">{{ $nombre_oficina }}</option>
+            @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('id_oficina')" class="mt-2" />
+        </div>
 
         <!-- Password -->
         <div class="mt-4">

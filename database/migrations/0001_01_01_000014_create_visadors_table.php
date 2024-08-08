@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('visadors', function (Blueprint $table) {
             $table->id();
             $table->string('estado')->default('Visar');
+            $table->unsignedBigInteger('id_usuario');
+            $table->foreign('id_usuario')->references('id')->on('users');
             $table->unsignedBigInteger('id_archivo');
             $table->foreign('id_archivo')->references('id')->on('archivos');
             $table->timestamps();

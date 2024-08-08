@@ -8,6 +8,7 @@
         <div class=" flex flex-col ml-3">
             <h1 class="text-blue-700 font-medium">Ilustre Municipalidad de Calbuco</h1>
             <span class="text-gray-500 font-roboto text-sm">Gestor documental</span>
+
         </div>
         <div>
             <h1></h1>
@@ -18,16 +19,18 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600" viewBox="0 0 24 24" width="14" height="14" color="#000000" fill="none">
                     <path d="M6.57757 15.4816C5.1628 16.324 1.45336 18.0441 3.71266 20.1966C4.81631 21.248 6.04549 22 7.59087 22H16.4091C17.9545 22 19.1837 21.248 20.2873 20.1966C22.5466 18.0441 18.8372 16.324 17.4224 15.4816C14.1048 13.5061 9.89519 13.5061 6.57757 15.4816Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     <path d="M16.5 6.5C16.5 8.98528 14.4853 11 12 11C9.51472 11 7.5 8.98528 7.5 6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5Z" stroke="currentColor" stroke-width="1.5" />
-                </svg><span class="text-sm">Pablo Mauricio Oyarzo Kappes</span>
+                </svg><span class="text-sm">{{ Auth::user()->name }}</span>
             </button>
             <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 border border-gray-300 rounded-lg shadow-xl w-72">
                 <div class="px-4 py-3 text-sm text-gray-900">
-                    <div class="truncate">Oficina de Informatica</div>
+                    <div class="truncate">
+                        <p>{{Auth::user()->oficina->nombre_oficina }}</p>
+                    </div>
                 </div>
                 <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
 
                     <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Configuraciones</a>
                     </li>
 
                 </ul>
@@ -169,23 +172,6 @@
 
         </ul>
 
-        <div class="mt-5 flex flex-col gap-4">
-            <span class=" text-[12px] text-gray-400">Sesión</span>
-        </div>
-        <ul class=" mt-5 space-y-2 text-sm">
-            <li>
-                <a href="" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-white" width="16" height="16" color="#000000" fill="none">
-                        <path d="M14 9H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                        <path d="M14 12.5H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                        <rect x="2" y="3" width="20" height="18" rx="5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-                        <path d="M5 16C6.20831 13.4189 10.7122 13.2491 12 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M10.5 9C10.5 10.1046 9.60457 11 8.5 11C7.39543 11 6.5 10.1046 6.5 9C6.5 7.89543 7.39543 7 8.5 7C9.60457 7 10.5 7.89543 10.5 9Z" stroke="currentColor" stroke-width="1.5" />
-                    </svg>
-                    <span class="ms-3">Editar mi información</span>
-                </a>
-            </li>
 
-        </ul>
     </div>
 </aside>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Oficina;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -19,7 +20,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $oficina = Oficina::pluck('nombre_oficina', 'id')->toArray();
+        return view('auth.register', ['oficina' => $oficina]);
+     
     }
 
     /**
@@ -33,7 +36,8 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'rut' => ['required', 'string',]
+            'rut' => ['required', 'string',],
+            'id_oficina' => ['required',]
         ]);
 
         $user = User::create([
@@ -41,6 +45,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'rut' => $request->rut,
+            'id_oficina' => $request->id_oficina
         ]);
 
         event(new Registered($user));

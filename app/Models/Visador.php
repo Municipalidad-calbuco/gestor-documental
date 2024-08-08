@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Visador extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'id_usuario',
+        'id_archivo'
+    ];
 }
