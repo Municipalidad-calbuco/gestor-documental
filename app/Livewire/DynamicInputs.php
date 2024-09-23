@@ -6,36 +6,16 @@ use Livewire\Component;
 
 class DynamicInputs extends Component
 {
-    public $inputs = [];
+    public $count = 1;
 
-
-    public $visadores = []; // Añade esta línea para almacenar las opciones de visadores
-
-    public function mount()
+    public function increment()
     {
-        // Carga las opciones de visadores (esto podría venir de una base de datos)
-        $this->visadores = [
-            ['id' => 1, 'name' => 'Visador 1'],
-            ['id' => 2, 'name' => 'Visador 2'],
-            ['id' => 3, 'name' => 'Visador 3'],
-            // ... más opciones
-        ];
+        $this->count++;
     }
 
-    public function addInput()
+    public function decrement()
     {
-        $this->inputs[] = '';
-    }
-    
-    public function updateInput($index, $value)
-    {
-        $this->inputs[$index] = $value;
-    }
-
-    public function removeInput($index)
-    {
-        unset($this->inputs[$index]);
-        $this->inputs = array_values($this->inputs);
+        $this->count--;
     }
     public function render()
     {

@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\ArchivoController;
+use App\Http\Controllers\FirmadorController;
 use App\Http\Controllers\ProcesoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VisadorController;
 use App\Models\Proceso;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\VerArchivo;
+use App\Livewire\FirmaVisadorComponent;
+use App\Livewire\UserSelect;
+use App\Models\Firmador;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/create/proceso', [ProcesoController::class, 'index'])->name('partes.proceso');
     Route::post('/create/-nuevo', [ProcesoController::class, 'create'])->name('partes.proceso');
     Route::get('/create/{id}', [ProcesoController::class, 'detalle'])->name('partes.create');
+    Route::get('/create/Firmas-Visadores/{id}', [FirmadorController::class, 'detalle'])->name('partes.firmas');
+    Route::delete('delete/visador/{id}', [VisadorController::class, 'destroy'])->name('partes.delete');
+    Route::get('/listado/visar', [VisadorController::class, 'index'])->name('visado.listado');
+    Route::get('/proceso/visar/{id}', [VisadorController::class, 'detalle'])->name('visado.visar');
+    Route::get('/proceso/firmar/{id}', [FirmadorController::class, 'detalle'])->name('firmas.firmar');
+
     Route::post('/upload', [ArchivoController::class, 'uploadFile'])->name('upload.file');
     Route::get('/download-file/{fileId}', [ArchivoController::class, 'getFile'])->name('download-file');
     Route::get('/view-file/{fileId}', [ArchivoController::class, 'viewFile'])->name('archivo.viewFile');
@@ -33,7 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/crear-visador', [VisadorController::class, 'store'])->name('visador.create');
     Route::get('/proceso/archivo/{id}', [ArchivoController::class, 'detalle'])->name('proceso.archivo');
 
-
+    Route::post('/firmar-documento', [FirmadorController::class, 'firmarDocumento'])->name('firmar.documento');
+    Route::get('/descargar-documento/{fileName}', [FirmadorController::class, 'descargarDocumento']);
     Route::get('/listado/firmas', function () {
         return view('firmas.entrada');
     })->name('firmas.entrada');

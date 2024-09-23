@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Oficina::class, 'id_oficina');
     }
+
+    public function cargos()
+    {
+        return $this->belongsToMany(Cargo::class, 'user_cargos', 'id_usuario', 'id_cargo');
+    }
 }

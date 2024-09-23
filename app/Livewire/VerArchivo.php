@@ -16,21 +16,21 @@ use Exception;
 
 class VerArchivo extends Component
 {
-   
+
     public $proceso;
     public $archivo;
     public $fileId;
     public $mimeType;
     public $error;
 
-    public function detalle($id_proceso)
+    public function detalle($id)
     {
-        $this->proceso = Proceso::find($id_proceso);
-        $this->archivo = Archivo::where('id_proceso', $id_proceso)->first();
-        
+        $this->proceso = Proceso::find($id);
+        $this->archivo = Archivo::where('id_proceso', $id)->first();
+
         $this->fileId = DB::table('archivos')
-                    ->where('id_proceso', $id_proceso)
-                    ->value('id_google_drive');
+            ->where('id_proceso', $id)
+            ->value('id_google_drive');
 
         if (!$this->fileId) {
             $this->error = 'No se encontró el archivo en Google Drive.';
@@ -49,6 +49,6 @@ class VerArchivo extends Component
     }
     public function render()
     {
-        return view('livewire.ver-archivo');
+        return view('livewire.ver-archivo')->layout('visado.visar');
     }
 }

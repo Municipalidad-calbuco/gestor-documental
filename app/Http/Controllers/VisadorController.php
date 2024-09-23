@@ -12,6 +12,7 @@ class VisadorController extends Controller
      */
     public function index()
     {
+        return view('visado.listado');
     }
 
     /**
@@ -21,7 +22,10 @@ class VisadorController extends Controller
     {
         //
     }
-
+    public function detalle($id)
+    {
+        return view('visado.visar');
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -68,8 +72,10 @@ class VisadorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Visador $visador)
+    public function destroy($id)
     {
-        //
+        $visador = Visador::find($id);
+        $visador->delete();
+        return redirect()->back()->with('success', 'success');
     }
 }

@@ -103,7 +103,7 @@
         </div>
         <ul class=" mt-5 space-y-2 text-sm">
             <li>
-                <a href="/listado/firmas" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group  @if(request()->routeIs('firmas.entrada')) bg-gray-700 @endif">
+                <a href="" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group  ">
                     <svg xmlns="http://www.w3.org/2000/svg" class="text-white" viewBox="0 0 24 24" width="16" height="16" color="#000000" fill="none">
                         <path d="M7 2.5C5.59269 2.66536 4.62427 3.01488 3.89124 3.75363C2.5 5.15575 2.5 7.41242 2.5 11.9258C2.5 16.4391 2.5 18.6958 3.89124 20.0979C5.28249 21.5 7.52166 21.5 12 21.5C16.4783 21.5 18.7175 21.5 20.1088 20.0979C21.5 18.6958 21.5 16.4391 21.5 11.9258C21.5 7.41242 21.5 5.15575 20.1088 3.75363C19.3757 3.01488 18.4073 2.66536 17 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M9.5 8C9.99153 8.5057 11.2998 10.5 12 10.5M14.5 8C14.0085 8.5057 12.7002 10.5 12 10.5M12 10.5V2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -114,7 +114,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group  @if(request()->routeIs('organizaciones.index')) bg-gray-700 @endif">
+                <a href="/listado/visar" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group  @if(request()->routeIs('visado.listado')) bg-gray-700 @endif">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M5 12l5 5l10 -10" />
@@ -123,7 +123,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group  @if(request()->routeIs('organizaciones.index')) bg-gray-700 @endif">
+                <a href="/listado/firmas" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group   @if(request()->routeIs('firmas.entrada')) bg-gray-700 @endif">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-writing">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M20 17v-12c0 -1.121 -.879 -2 -2 -2s-2 .879 -2 2v12l2 2l2 -2z" />

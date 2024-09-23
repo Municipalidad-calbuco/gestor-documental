@@ -7,6 +7,7 @@ use App\Models\Proceso;
 use App\Models\TipoDocumento;
 use App\Models\User;
 use App\Models\Visador;
+use Exception;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -37,25 +38,38 @@ class ProcesoController extends Controller
 
         return redirect()->route('partes.create', ['id' => $nuevoProceso->id])->with('agregado', 'agregado');
     }
-    public function detalle($id_proceso)
+    public function detalle($id)
     {
+        // dd($id_proceso); // Para verificar el valor de $id_proceso
+
+        // // Verificar si el ID del proceso es válido
+        // if (!is_numeric($id_proceso) || $id_proceso <= 0) {
+        //     return back()->with('error', 'ID de proceso no válido.');
+        // }
+
         // Obtener el proceso
-        $proceso = Proceso::find($id_proceso);
+        $proceso = Proceso::find($id);
+        // if (!$proceso) {
+        //     return back()->with('error', 'Proceso no encontrado.');
+        // }
+
+        // Obtener todos los usuarios
         $users = User::all();
 
-        // Obtener el archivo relacionado
-        $archivo = Archivo::where('id_proceso', $id_proceso)->first();
+        // Obtener el archivo relacionado al proceso
+        $archivo = Archivo::where('id_proceso', $id)->first();
+
 
         // Obtener el ID del archivo de Google Drive desde la base de datos
-        $fileId = DB::table('archivos')
-            ->where('id_proceso', $id_proceso)
-            ->value('id_google_drive');
+        $fileId = $archivo->id_google_drive;
 
-        // Obtener ID del archivo
+
+
+
+        // Obtener IDs de archivos relacionados con el proceso
         $id_archivos = DB::table('archivos')
-            ->select('archivos.id')
             ->join('visadors', 'visadors.id_archivo', '=', 'archivos.id')
-            ->where('archivos.id_proceso', $id_proceso)
+            ->where('archivos.id_proceso', $id)
             ->pluck('archivos.id');
 
         // Obtener la lista de visadores
@@ -65,16 +79,12 @@ class ProcesoController extends Controller
             ->whereIn('visadors.id_archivo', $id_archivos)
             ->get();
 
+        // Obtener la lista de firmadores
         $firmadores = DB::table('users')
             ->select('users.name', 'users.rut')
             ->join('firmadors', 'firmadors.id_usuario', '=', 'users.id')
             ->whereIn('firmadors.id_archivo', $id_archivos)
             ->get();
-
-        // Verificar si el ID del archivo es válido
-        if (!$fileId) {
-            return back()->with('error', 'No se encontró el archivo en Google Drive.');
-        }
 
         // Inicializar Google Client
         $client = new Google_Client();
@@ -86,16 +96,22 @@ class ProcesoController extends Controller
         $service = new Google_Service_Drive($client);
 
         // Obtener metadatos del archivo
-        $fileMetadata = $service->files->get($fileId);
-        $mimeType = $fileMetadata->getMimeType();
+        try {
+            $fileMetadata = $service->files->get($fileId);
+            $mimeType = $fileMetadata->getMimeType();
+        } catch (Exception $e) {
+            return back()->with('error', 'Error al obtener los metadatos del archivo: ' . $e->getMessage());
+        }
 
+        // Retornar la vista con los datos necesarios
         return view('partes.create', [
             'proceso' => $proceso,
             'archivo' => $archivo,
             'fileId' => $fileId,
             'mimeType' => $mimeType,
             'users' => $users,
-            'visadores' => $visadores
+            'visadores' => $visadores,
+            'firmadores' => $firmadores
         ]);
     }
 

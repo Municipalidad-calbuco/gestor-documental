@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('firmadors', function (Blueprint $table) {
             $table->id();
             $table->string('estado')->default('En espera');
+            $table->dateTime('fecha_firma')->nullable();
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users');
             $table->unsignedBigInteger('id_cargo')->nullable();
             $table->foreign('id_cargo')->references('id')->on('cargos');
-            $table->unsignedBigInteger('id_archivo');
+            $table->unsignedBigInteger('id_archivo')->nullable();;
             $table->foreign('id_archivo')->references('id')->on('archivos');
-            $table->unsignedBigInteger('id_coord');
+            $table->unsignedBigInteger('id_coord')->nullable();;
             $table->foreign('id_coord')->references('id')->on('coord_firmas');
             $table->timestamps();
         });

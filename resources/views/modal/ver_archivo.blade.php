@@ -15,11 +15,14 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <div class="p-4 md:p-5">
-
-                <object data="{{ url('/view-file/' . $fileId) }}" type="{{ $mimeType }}" width="700" height="630">
+            <div class=" bg-gray-400">
+                @if ($fileId)
+                <object data="{{ url('/view-file/' . $fileId) }}" type="{{ $mimeType }}" width="100%" height="630">
                     Tu navegador no soporta la visualización de archivos.
                 </object>
+                @else
+                <p>No se encontró un archivo para visualizar.</p>
+                @endif
 
 
             </div>
