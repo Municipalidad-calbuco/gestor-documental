@@ -12,12 +12,12 @@
 
                 @if($isUserOpen)
                 <div class="absolute z-10 w-full mt-1 bg-white divide-y divide-gray-100 rounded-lg shadow">
-                    <ul class="p-3 text-sm text-gray-700 border border-gray-300 rounded-md">
+                    <ul class="p-3 text-sm text-gray-700 border border-gray-300 rounded-md overflow-y-auto h-[250px]">
                         <div class="flex items-center mb-2">
                             <input type="text" wire:model.live="userSearch" class="form-input w-full text-sm border border-gray-300 rounded-md" placeholder="Buscar Usuario..." />
                         </div>
                         @foreach ($this->filteredUsers as $user)
-                        <li wire:key="user-{{ $user->id }}" wire:click="selectUser({{ $user->id }})" class="flex flex-col mt-3 p-2 cursor-pointer hover:bg-gray-200 {{ $selectedUserId == $user->id ? 'bg-blue-100' : '' }}" value="{{ $user->id }}">
+                        <li wire:key="user-{{ $user->id }}" wire:click="selectUser({{ $user->id }})" class="flex flex-col mt-3 p-2 cursor-pointer  hover:bg-gray-200 {{ $selectedUserId == $user->id ? 'bg-blue-100' : '' }}" value="{{ $user->id }}">
                             <p>{{ $user->name }}</p>
                             <p>{{ $user->rut }}</p>
                         </li>
@@ -38,7 +38,7 @@
 
                 @if($isCargoOpen && $selectedUserId)
                 <div class="absolute z-10 w-full mt-1 bg-white divide-y divide-gray-100 rounded-lg shadow">
-                    <ul class="p-3 text-sm text-gray-700 border border-gray-300 rounded-md">
+                    <ul class="p-3 text-sm text-gray-700 border border-gray-300 rounded-md overflow-y-auto h-[250px]">
                         <div class="flex items-center mb-2">
                             <input type="text" wire:model.live="cargoSearch" class="form-input w-full text-sm border border-gray-300 rounded-md" placeholder="Buscar Cargo..." />
                         </div>

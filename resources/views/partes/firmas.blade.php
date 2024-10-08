@@ -206,6 +206,11 @@
             <livewire:user-select :id="request()->route('id')" />
         </div>
 
+        <div class="p-3">
+            <h1>Visadores</h1>
+            <livewire:user-select-visar :id="request()->route('id')" />
+        </div>
+
     </div>
 </div>
 @endsection

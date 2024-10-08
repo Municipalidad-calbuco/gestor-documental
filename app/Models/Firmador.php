@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Firmador extends Model
 {
     use HasFactory;
-    protected $fillable = ['id_usuario', 'id_cargo', 'id_archivo'];
+    protected $fillable = ['id_usuario', 'id_cargo', 'id_archivo', 'fecha_firma', 'estado'];
 }

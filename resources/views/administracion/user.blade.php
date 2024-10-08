@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @livewireStyles
 @section('content')
-<h1 class="mb-4 text-2xl">Lista Visaciones</h1>
-<livewire:table-visar />
+<h1 class=" text-2xl">Listado de Usuarios</h1>
+<livewire:lista-user />
 @endsection
 @livewireScripts

@@ -7,11 +7,15 @@ use Livewire\WithFileUploads;
 
 use App\Http\Controllers\FirmadorController;
 use App\Models\Archivo;
+use App\Models\Firmador;
 use App\Models\Proceso;
+use DateTimeZone;
 use Illuminate\Support\Facades\Storage;
 use Google\Client as Google_Client;
 use Google\Service\Drive as Google_Service_Drive;
 use Illuminate\Support\Facades\DB;
+use DateTime;
+
 
 class FirmarDocumento extends Component
 {
@@ -26,6 +30,7 @@ class FirmarDocumento extends Component
     public $cargo;
     public $idUsurio;
     public $rut;
+    public $archivoid;
 
     protected $rules = [
         'otp' => 'required|string',
@@ -38,6 +43,7 @@ class FirmarDocumento extends Component
         $this->nombre = auth()->user()->name;
         $this->idUsurio = auth()->id();
         $this->rut = auth()->user()->rut;
+        $this->archivoid = Archivo::where('id_proceso', $id)->value('id');
 
 
         $this->loadProcessAndFile();
@@ -86,10 +92,20 @@ class FirmarDocumento extends Component
 
             $controller = new FirmadorController();
             $response = $controller->procesarFirmaGoogleDrive($this->fileId, $this->otp, $this->nombre, $this->cargo, $this->rut);
+            $chileTimeZone = new DateTimeZone('America/Santiago');
+
 
 
             if ($response['success']) {
-
+                $registro = Firmador::where('id_usuario', $this->idUsurio)
+                    ->where('id_archivo', $this->archivoid) // Ahora es solo el id
+                    ->first();
+                if ($registro) {
+                    $registro->update([
+                        'estado' => 'Firmado',
+                        'fecha_firma' =>  $dateTime = new DateTime('now', $chileTimeZone)
+                    ]);
+                }
                 $this->message = 'Documento firmado exitosamente y actualizado en Google Drive.';
             } else {
                 $this->message = 'Error: ' . ($response['error'] ?? 'Ocurrió un error desconocido');

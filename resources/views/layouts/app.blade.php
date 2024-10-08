@@ -17,7 +17,7 @@
     @livewireStyles <!-- Agrega esto para los estilos de Livewire -->
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-gray-50">
 
     @include('menu.menu')
     <div class="p-4 sm:ml-64 h-full">

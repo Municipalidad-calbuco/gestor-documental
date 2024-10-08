@@ -12,7 +12,7 @@ class UserCargoController extends Controller
      */
     public function index()
     {
-        //
+        return view('administracion.user');
     }
 
     /**

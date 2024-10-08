@@ -14,6 +14,7 @@ use DateTime;
 use Google\Client as Google_Client;
 use Google\Service\Drive as Google_Service_Drive;
 use Google\Service\Drive\DriveFile as Google_Service_Drive_DriveFile;
+use Illuminate\Support\Facades\DB;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,6 +28,20 @@ class FirmadorController extends Controller
     {
         // Obtener la lista de visadores
 
+    }
+    public function visadoresfirma($id)
+    {
+        $users = User::all();
+
+        $archivo = Archivo::where('id_proceso', $id)->first();
+
+        // Obtener la lista de visadores
+        $visadores = DB::table('users')
+            ->select('users.name', 'users.rut', 'visadors.id')
+            ->join('visadors', 'visadors.id_usuario', '=', 'users.id')
+            ->whereIn('visadors.id_archivo', $archivo)
+            ->get();
+        return view('partes.firmas', ['users' => $users, 'archivo' => $archivo, 'visadores' => $visadores]);
     }
     public function detalle($id)
     {
@@ -83,13 +98,13 @@ class FirmadorController extends Controller
     {
         // Configuración
         $apiUrl = 'https://api.firma.cert.digital.gob.cl/firma/v2/files/tickets';
-        $apiTokenKey = 'sandbox';
-        $secret = '27a216342c744f89b7b82fa290519ba0';
+        $apiTokenKey = '527e1f35-7522-4f8a-9990-bdaf82bd9b44';
+        $secret = '1c90c59c07a547fd85b7f08e8a518cfd';
 
         // Crear el JWT
         $payload = [
-            'entity' => 'Subsecretaría General de la Presidencia',
-            'run' => '11111111',
+            'entity' => 'Ilustre Municipalidad de Calbuco',
+            'run' => '19175756',
             'expiration' => (new DateTime('now', new DateTimeZone('America/Santiago')))->modify('+25 minutes')->format('Y-m-d\TH:i:s'),
             'purpose' => 'Propósito General',
         ];

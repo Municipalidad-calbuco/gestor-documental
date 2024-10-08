@@ -21,11 +21,19 @@
     <div id="default-styled-tab-content">
         <div class="hidden p-4 rounded-lg bg-white " id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="relative overflow-x-auto">
-                <div class="mb-4">
-                    <input type="text" class=" w-1/4 text-sm border border-gray-400 rounded-md shadow-sm" placeholder="Buscar...">
+                <div class="relative mb-4">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" text-gray-400 icon icon-tabler icons-tabler-outline icon-tabler-search">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                            <path d="M21 21l-6 -6" />
+                        </svg>
+                    </div>
+
+                    <input class="p-2 border border-gray-300 rounded-md ps-10 w-1/4 shadow-md" placeholder="Buscar usuario...">
                 </div>
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+                <table class="w-full text-sm bg-white text-left rtl:text-right border text-gray-500 shadow-xl rounded-md">
+                    <thead class="text-[12px] text-blue-600 uppercase border-b border-blue-600">
 
                         <th scope="col" class="px-6 py-3 font-semibold ">
                             Nombre acto
@@ -47,23 +55,23 @@
                     </thead>
                     <tbody>
                         @foreach ($firmar as $firmars )
-                        <tr class="hover:bg-gray-50">
-                            <td scope="row" class="px-6 py-4 text-gray-800 ">
+                        <tr class="border-b border-blue-200 hover:bg-gray-50 ">
+                            <td scope="row" class="px-6 py-2 text-gray-800 ">
                                 {{$firmars->descripcion}}
                             </td>
-                            <td scope="row" class="px-6 py-4 text-gray-800 ">
+                            <td scope="row" class="px-6 py-2 text-gray-800 ">
                                 {{$firmars->nombre_doc}}
                             </td>
-                            <td scope="row" class="px-6 py-4 text-gray-800 ">
+                            <td scope="row" class="px-6 py-2 text-gray-800 ">
                                 {{$firmars->nombre_cargo}}
                             </td>
-                            <td scope="row" class="px-6 py-4 text-gray-800 ">
+                            <td scope="row" class="px-6 py-2 text-gray-800 ">
 
                                 <span class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded  border border-indigo-400"> {{$firmars->estado}}</span>
 
                             </td>
                             <td class="flex gap-3 px-6 py-4">
-                                <a href="">
+                                <a href="" class="flex items-center p-2 bg-blue-900 text-white rounded-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-writing">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M20 17v-12c0 -1.121 -.879 -2 -2 -2s-2 .879 -2 2v12l2 2l2 -2z" />
@@ -71,8 +79,8 @@
                                         <path d="M18 19h-13a2 2 0 1 1 0 -4h4a2 2 0 1 0 0 -4h-3" />
                                     </svg>
                                 </a>
-                                <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle">
+                                <a href="" class="flex items-center p-2 bg-blue-900 text-white rounded-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-exclamation-circle">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
                                         <path d="M12 9v4" />
@@ -80,7 +88,7 @@
                                     </svg>
                                 </a>
                                 <button type="button" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list-details">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list-details">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M13 5h8" />
                                         <path d="M13 9h5" />
@@ -99,6 +107,7 @@
                     </tbody>
 
                 </table>
+                {{$firmar->links() }}
             </div>
             <div wire:loading>
                 <div class="fixed top-0 left-1/2 transform -translate-x-1/2 mt-14 bg-orange-400 text-gray-300 p-1 text-sm rounded-md shadow-lg">

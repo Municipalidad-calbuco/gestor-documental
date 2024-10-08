@@ -61,7 +61,10 @@ class ProcesoController extends Controller
 
 
         // Obtener el ID del archivo de Google Drive desde la base de datos
-        $fileId = $archivo->id_google_drive;
+
+
+
+        //$fileId = $archivo->id_google_drive;
 
 
 
@@ -97,8 +100,6 @@ class ProcesoController extends Controller
 
         // Obtener metadatos del archivo
         try {
-            $fileMetadata = $service->files->get($fileId);
-            $mimeType = $fileMetadata->getMimeType();
         } catch (Exception $e) {
             return back()->with('error', 'Error al obtener los metadatos del archivo: ' . $e->getMessage());
         }
@@ -107,8 +108,7 @@ class ProcesoController extends Controller
         return view('partes.create', [
             'proceso' => $proceso,
             'archivo' => $archivo,
-            'fileId' => $fileId,
-            'mimeType' => $mimeType,
+
             'users' => $users,
             'visadores' => $visadores,
             'firmadores' => $firmadores
